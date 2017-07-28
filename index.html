@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SVG Lines</title>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="belay.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <style>
+
+    body{
+      background: #eee;
+    }
+    .grid{
+      padding: 30px;
+    }
+    .fact,.source, .child, .parent{
+
+      background: #fff;
+      margin: 10px 0px;
+      border-radius: 4px;
+      min-height: 30px;
+      padding: 10;
+    }
+    ol{
+      margin: 0;
+      padding: 0;
+
+    }
+    li{
+      list-style:none;
+      padding: 0;
+    }
+    h1,h2,h3{
+      margin-top:0;
+    }
+    li p{margin-bottom:0;}
+
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="row">
+      <div class="col-sm-3">
+        <h3>Business Areas</h3><br>
+        <ol id="BusinessAreas">
+          <li class="parent" id="2parent-1">Local Government and Regional Services</li>
+          <li class="parent" id="2parent-2">Strategy Governance and Engagement</li>
+          <li class="parent" id="2parent-3">Planning</li>
+          <li class="parent" id="2parent-4">Infrastructure Policy and Planning</li>
+          <li class="parent" id="2parent-5">Economic Development Queensland</li>
+          <li class="parent" id="2parent-6">South Bank</li>
+          <li class="parent" id="2parent-7">Office of the Queensland Government Architect</li>
+        </ol>
+      </div>
+      <div class="col-sm-2"></div>
+      <div class="col-sm-3">
+        <h3>Body of Work</h3><br>
+        <ol id="BodyOfWork">
+          <li class="parent 2parent-1 2parent-2 2parent-3" id="parent-1">
+            State Infrastructure Plan<br>
+          </li>
+          <li class="parent 2parent-6 2parent-7" id="parent-2">
+            State Infrastructure Fund<br>
+          </li>
+          <li class="parent 2parent-4 2parent-5" id="parent-3">
+            Works for Queensland<br>
+          </li>
+        </ol>
+      </div>
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <h3>Type</h3><br>
+        <ol id="Type">
+          <li class="child parent-3">Legislation</li>
+          <li class="child parent-1">Policy</li>
+          <li class="child parent-2">Strategy</li>
+          <li class="child parent-1">Plan</li>
+          <li class="child parent-3">Program</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+
+  function drawConnectors(parent){
+  //Draws a line from the wife to her children, based on each child having a class that is the id of the parent.
+  $("#"+parent).each(function(){
+    var theID = this.id;
+    //console.log(theID);
+    $("."+theID).each(function(i,e){
+      //console.log(i,e)
+      var rand = Math.random() * .7 + .3;
+      Belay.set('animationDuration', rand)
+      console.log(theID,e)
+      Belay.on($("#"+theID), e)
+    });
+  })
+}
+
+
+// redraw if window is resized
+// $(window).resize(function(){
+//   Belay.off();
+//   drawConnectors('parent-1');
+// });
+
+Belay.init({strokeWidth: 1});
+Belay.set('strokeColor', '#33ffbb');
+
+$('#parent-1').click(function() { 
+  Belay.off();
+  var selected='parent-1'
+  var selectedClasses=$('#'+selected).attr("class")
+  selectedClasses = selectedClasses.split(" ")
+  drawConnectors(selected);
+  for (var i = selectedClasses.length - 1; i >= 0; i--) {
+    drawConnectors(selectedClasses[i]);
+  }
+});
+$('#parent-2').click(function() { 
+  Belay.off();
+  var selected='parent-2'
+  var selectedClasses=$('#'+selected).attr("class")
+  selectedClasses = selectedClasses.split(" ")
+  drawConnectors(selected);
+  for (var i = selectedClasses.length - 1; i >= 0; i--) {
+    drawConnectors(selectedClasses[i]);
+  }
+});
+$('#parent-3').click(function() { 
+  Belay.off();
+  var selected='parent-3'
+  var selectedClasses=$('#'+selected).attr("class")
+  selectedClasses = selectedClasses.split(" ")
+  drawConnectors(selected);
+  for (var i = selectedClasses.length - 1; i >= 0; i--) {
+    drawConnectors(selectedClasses[i]);
+  }
+});
+
+
+</script>
+
+
+</html>
