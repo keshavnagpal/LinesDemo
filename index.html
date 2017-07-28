@@ -86,7 +86,8 @@
 </body>
 
 <script>
-
+color1='#00cc66';
+color2='#3399ff';
   function drawConnectors(parent,direction){
   //Draws a line from the wife to her children, based on each child having a class that is the id of the parent.
   $("#"+parent).each(function(){
@@ -95,9 +96,15 @@
     $("."+theID).each(function(i,e){
       //console.log(i,e)
       var rand = Math.random() * .7 + .3;
-      Belay.set('animationDuration', rand)
-      Belay.set('animationDirection', direction)
-      //console.log(theID,e)
+      color = Math.floor(rand*10);
+      color=(color<7)?color1:color2;
+      console.log(rand);
+
+      //setting attributes
+      Belay.set('animationDuration', rand);
+      Belay.set('animationDirection', direction);
+      Belay.set('strokeColor', color);
+  
       Belay.on($("#"+theID), e)
     });
   })
@@ -105,7 +112,7 @@
 
 var lastClicked=''
 Belay.init({strokeWidth: 1.5});
-Belay.set('strokeColor', '#00e673');
+//Belay.set('strokeColor', '#00e673');
 
 $(window).resize(function(){
   Belay.off();
