@@ -2,9 +2,9 @@
 <html>
 <head>
   <title>SVG Lines</title>
-  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
   <script src="belay.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <style>
 
     body{
@@ -93,27 +93,35 @@
       //console.log(i,e)
       var rand = Math.random() * .7 + .3;
       Belay.set('animationDuration', rand)
-      console.log(theID,e)
+      //console.log(theID,e)
       Belay.on($("#"+theID), e)
     });
   })
 }
 
+var lastClicked=''
+Belay.init({strokeWidth: 1});
+Belay.set('strokeColor', '#33ffbb');
 
-// redraw if window is resized
-// $(window).resize(function(){
-//   Belay.off();
-//   drawConnectors('parent-1');
-// });
+$(window).resize(function(){
+  Belay.off();
+  var selected=lastClicked;
+  var selectedClasses=$('#'+selected).attr("class");
+  selectedClasses = selectedClasses.split(" ");
+  drawConnectors(selected);
+  for (var i = selectedClasses.length - 1; i >= 0; i--) {
+    drawConnectors(selectedClasses[i]);
+  }
+});
 
-Belay.init({strokeWidth: 1.5});
-Belay.set('strokeColor', '#00ffcc');
+
 
 $('#parent-1').click(function() { 
   Belay.off();
-  var selected='parent-1'
-  var selectedClasses=$('#'+selected).attr("class")
-  selectedClasses = selectedClasses.split(" ")
+  var selected='parent-1';
+  lastClicked=selected;
+  var selectedClasses=$('#'+selected).attr("class");
+  selectedClasses = selectedClasses.split(" ");
   drawConnectors(selected);
   for (var i = selectedClasses.length - 1; i >= 0; i--) {
     drawConnectors(selectedClasses[i]);
@@ -121,9 +129,10 @@ $('#parent-1').click(function() {
 });
 $('#parent-2').click(function() { 
   Belay.off();
-  var selected='parent-2'
-  var selectedClasses=$('#'+selected).attr("class")
-  selectedClasses = selectedClasses.split(" ")
+  var selected='parent-2';
+  lastClicked=selected;
+  var selectedClasses=$('#'+selected).attr("class");
+  selectedClasses = selectedClasses.split(" ");
   drawConnectors(selected);
   for (var i = selectedClasses.length - 1; i >= 0; i--) {
     drawConnectors(selectedClasses[i]);
@@ -131,9 +140,10 @@ $('#parent-2').click(function() {
 });
 $('#parent-3').click(function() { 
   Belay.off();
-  var selected='parent-3'
-  var selectedClasses=$('#'+selected).attr("class")
-  selectedClasses = selectedClasses.split(" ")
+  var selected='parent-3';
+  lastClicked=selected;
+  var selectedClasses=$('#'+selected).attr("class");
+  selectedClasses = selectedClasses.split(" ");
   drawConnectors(selected);
   for (var i = selectedClasses.length - 1; i >= 0; i--) {
     drawConnectors(selectedClasses[i]);
