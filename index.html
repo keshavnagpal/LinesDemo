@@ -30,6 +30,9 @@
       list-style:none;
       padding: 0;
     }
+    #BodyOfWork li{
+      cursor: pointer; cursor: hand;
+    }
     h1,h2,h3{
       margin-top:0;
     }
@@ -84,7 +87,7 @@
 
 <script>
 
-  function drawConnectors(parent){
+  function drawConnectors(parent,direction){
   //Draws a line from the wife to her children, based on each child having a class that is the id of the parent.
   $("#"+parent).each(function(){
     var theID = this.id;
@@ -93,6 +96,7 @@
       //console.log(i,e)
       var rand = Math.random() * .7 + .3;
       Belay.set('animationDuration', rand)
+      Belay.set('animationDirection', direction)
       //console.log(theID,e)
       Belay.on($("#"+theID), e)
     });
@@ -108,9 +112,9 @@ $(window).resize(function(){
   var selected=lastClicked;
   var selectedClasses=$('#'+selected).attr("class");
   selectedClasses = selectedClasses.split(" ");
-  drawConnectors(selected);
+  drawConnectors(selected,'right');
   for (var i = selectedClasses.length - 1; i >= 0; i--) {
-    drawConnectors(selectedClasses[i]);
+    drawConnectors(selectedClasses[i],'left');
   }
 });
 
@@ -122,9 +126,9 @@ $('#parent-1').click(function() {
   lastClicked=selected;
   var selectedClasses=$('#'+selected).attr("class");
   selectedClasses = selectedClasses.split(" ");
-  drawConnectors(selected);
+  drawConnectors(selected,'right');
   for (var i = selectedClasses.length - 1; i >= 0; i--) {
-    drawConnectors(selectedClasses[i]);
+    drawConnectors(selectedClasses[i],'left');
   }
 });
 $('#parent-2').click(function() { 
@@ -133,9 +137,9 @@ $('#parent-2').click(function() {
   lastClicked=selected;
   var selectedClasses=$('#'+selected).attr("class");
   selectedClasses = selectedClasses.split(" ");
-  drawConnectors(selected);
+  drawConnectors(selected,'right');
   for (var i = selectedClasses.length - 1; i >= 0; i--) {
-    drawConnectors(selectedClasses[i]);
+    drawConnectors(selectedClasses[i],'left');
   }
 });
 $('#parent-3').click(function() { 
@@ -144,9 +148,9 @@ $('#parent-3').click(function() {
   lastClicked=selected;
   var selectedClasses=$('#'+selected).attr("class");
   selectedClasses = selectedClasses.split(" ");
-  drawConnectors(selected);
+  drawConnectors(selected,'right');
   for (var i = selectedClasses.length - 1; i >= 0; i--) {
-    drawConnectors(selectedClasses[i]);
+    drawConnectors(selectedClasses[i],'left');
   }
 });
 
